@@ -6,12 +6,14 @@
   - product: {Object} Product liquid object
   - variant_images: {Array} Product images associated with a variant
   - limit: {Number} (optional) When passed, limits the number of media items to render
+  - show_arrows: show navigation arrows on main gallery (boolean)
 
   Usage:
   {% render 'product-media-gallery' %}
 {% endcomment %}
 
 {%- liquid
+  assign show_arrows = section.settings.show_main_gallery_arrows
   if section.settings.hide_variants and variant_images.size == product.media.size
     assign single_media_visible = true
   endif
@@ -52,13 +54,16 @@
   data-desktop-layout="{{ section.settings.gallery_layout }}"
 >
   <div id="GalleryStatus-{{ section.id }}" class="visually-hidden" role="status"></div>
-  <slider-component id="GalleryViewer-{{ section.id }}" class="slider-mobile-gutter">
+  <slider-component
+    id="GalleryViewer-{{ section.id }}"
+    class="slider-mobile-gutter"
+  >
     <a class="skip-to-content-link button visually-hidden quick-add-hidden" href="#ProductInfo-{{ section.id }}">
       {{ 'accessibility.skip_to_product_info' | t }}
     </a>
     <ul
       id="Slider-Gallery-{{ section.id }}"
-      class="product__media-list contains-media grid grid--peek list-unstyled slider slider--mobile"
+      class="product__media-list contains-media grid grid--peek list-unstyled slider {% if show_arrows %} slider--everywhere{% endif %}"
       role="list"
     >
       {%- if product.selected_or_first_available_variant.featured_media != null -%}
@@ -131,6 +136,8 @@
         class="slider-button slider-button--prev"
         name="previous"
         aria-label="{{ 'general.slider.previous_slide' | t }}"
+        aria-controls="GalleryViewer-{{ section.id }}"
+        data-step="1"
       >
         <span class="svg-wrapper">
           {{- 'icon-caret.svg' | inline_asset_content -}}
@@ -147,6 +154,8 @@
         class="slider-button slider-button--next"
         name="next"
         aria-label="{{ 'general.slider.next_slide' | t }}"
+        aria-controls="GalleryViewer-{{ section.id }}"
+        data-step="1"
       >
         <span class="svg-wrapper">
           {{- 'icon-caret.svg' | inline_asset_content -}}
