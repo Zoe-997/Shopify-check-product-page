@@ -8,6 +8,7 @@
   {% if section.settings.image_zoom == 'hover' %}
     data-zoom-on-hover
   {% endif %}
+  data-variant-selection-image-first="{{ section.settings.variant_selection_image_first }}"
 >
   {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
   {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
@@ -2152,6 +2153,12 @@
       "id": "show_main_gallery_arrows",
       "default": false,
       "label": "t:sections.main-product.settings.main-gallery.show_arrows.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "variant_selection_image_first",
+      "default": false,
+      "label": "t:sections.main-product.settings.main-gallery.variant_selection_image_first.label"
     },
     {
       "type": "select",

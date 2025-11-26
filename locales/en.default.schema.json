@@ -2356,7 +2356,10 @@
         "main-gallery": {
           "show_arrows": {
             "label": "Main gallery navigation arrows"
-          }
+          },
+          "variant_selection_image_first": {
+            "label": "Variant selection images first in gallery"
+          },
         },
         "constrain_to_viewport": {
           "label": "Constrain to screen height"
